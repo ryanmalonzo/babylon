@@ -8,6 +8,7 @@ services:
       - "8080:8080"
     volumes:
       - ${VOLUMES_DIR}/traefik/traefik.yml:/etc/traefik/traefik.yml
+      - ${VOLUMES_DIR}/traefik/dynamic.yml:/etc/traefik/dynamic.yml
       - ${VOLUMES_DIR}/traefik/letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
