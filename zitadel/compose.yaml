@@ -24,6 +24,7 @@ services:
       - zitadel
     restart: unless-stopped
     labels:
+      - "traefik.enable=true"
       - "traefik.http.routers.zitadel.rule=Host(`id.ryanmalonzo.com`)"
       - "traefik.http.routers.zitadel.entrypoints=websecure"
       - "traefik.http.routers.zitadel.tls.certresolver=cloudflare"
