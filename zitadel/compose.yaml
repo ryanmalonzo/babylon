@@ -34,8 +34,8 @@ services:
     volumes:
       - ${VOLUMES_DIR}/zitadel/data:/var/lib/postgresql/data
     environment:
-      PGUSER: postgres
-      POSTGRES_PASSWORD: postgres
+      PGUSER: ${ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME}
+      POSTGRES_PASSWORD: ${ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready", "-d", "zitadel", "-U", "postgres"]
       interval: 10s
