@@ -11,8 +11,8 @@ services:
       - ${VOLUMES_DIR}/traefik/letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
-      - CLOUDFLARE_EMAIL: ${CLOUDFLARE_EMAIL}
-      - CLOUDFLARE_DNS_API_TOKEN: ${CLOUDFLARE_DNS_API_TOKEN}
+      CLOUDFLARE_EMAIL: ${CLOUDFLARE_EMAIL}
+      CLOUDFLARE_DNS_API_TOKEN: ${CLOUDFLARE_DNS_API_TOKEN}
     networks:
       - proxy
     restart: unless-stopped
