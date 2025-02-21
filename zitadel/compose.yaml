@@ -36,6 +36,7 @@ services:
     environment:
       PGUSER: ${ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME}
       POSTGRES_PASSWORD: ${ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD}
+      POSTGRES_DB: zitadel
     healthcheck:
       test: ["CMD-SHELL", "pg_isready", "-d", "zitadel", "-U", "postgres"]
       interval: 10s
