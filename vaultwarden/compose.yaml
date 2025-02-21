@@ -25,6 +25,8 @@ services:
       - ${VOLUMES_DIR}/vaultwarden/data:/data
     environment:
       DOMAIN: https://vaultwarden.owl-augmented.ts.net
+    depends_on:
+      - tailscale-vaultwarden
     network_mode: service:tailscale-vaultwarden
     restart: unless-stopped
 
