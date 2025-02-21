@@ -1,0 +1,52 @@
+services:
+  zitadel:
+    image: ghcr.io/zitadel/zitadel:latest
+    command: "start-from-init --masterkeyFromEnv"
+    environment:
+      ZITADEL_MASTERKEY: ${ZITADEL_MASTERKEY}
+      ZITADEL_EXTERNALPORT: 443
+      ZITADEL_EXTERNALSECURE: true
+      ZITADEL_TLSENABLED: true
+      ZITADEL_DATABASE_POSTGRES_HOST: db
+      ZITADEL_DATABASE_POSTGRES_PORT: 5432
+      ZITADEL_DATABASE_POSTGRES_DATABASE: zitadel
+      ZITADEL_DATABASE_POSTGRES_USER_USERNAME: ${ZITADEL_DATABASE_POSTGRES_USER_USERNAME}
+      ZITADEL_DATABASE_POSTGRES_USER_PASSWORD: ${ZITADEL_DATABASE_POSTGRES_USER_PASSWORD}
+      ZITADEL_DATABASE_POSTGRES_USER_SSL_MODE: disable
+      ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME: ${ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME}
+      ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD: ${ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD}
+      ZITADEL_DATABASE_POSTGRES_ADMIN_SSL_MODE: disable
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - proxy
+      - zitadel
+    restart: unless-stopped
+    labels:
+      - "traefik.http.routers.zitadel.rule=Host(`id.ryanmalonzo.com`)"
+      - "traefik.http.routers.zitadel.entrypoints=websecure"
+      - "traefik.http.routers.zitadel.tls.certresolver=cloudflare"
+      - "traefik.http.services.zitadel.loadbalancer.server.port=8080"
+
+  db:
+    image: postgres:16-alpine
+    volumes:
+      - ${VOLUMES_DIR}/zitadel/data:/var/lib/postgresql/data
+    environment:
+      PGUSER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "zitadel", "-U", "postgres"]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+      start_period: 20s
+    networks:
+      - zitadel
+    restart: unless-stopped
+
+networks:
+  proxy:
+    external: true
+  zitadel:
