@@ -1,0 +1,28 @@
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - JELLYFIN_PublishedServerUrl=https://jellyfin.ryanmalonzo.com
+    volumes:
+      - ${VOLUMES_DIR}/jellyfin/config:/config
+      - /mnt/hdd1/tvshows:/data/tvshows
+      - /mnt/hdd1/movies:/data/movies
+    devices:
+      - /dev/dri:/dev/dri
+    networks:
+      - proxy
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.ryanmalonzo.com`)"
+      - "traefik.http.routers.jellyfin.entrypoints=websecure"
+      - "traefik.http.routers.jellyfin.tls.certresolver=cloudflare"
+      - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
+
+networks:
+  proxy:
+    external: true
