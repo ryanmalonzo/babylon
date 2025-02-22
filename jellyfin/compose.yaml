@@ -3,10 +3,10 @@ services:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - JELLYFIN_PublishedServerUrl=https://jellyfin.ryanmalonzo.com
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+      JELLYFIN_PublishedServerUrl: https://jellyfin.ryanmalonzo.com
     volumes:
       - ${VOLUMES_DIR}/jellyfin/config:/config
       - /mnt/hdd1/tvshows:/data/tvshows
