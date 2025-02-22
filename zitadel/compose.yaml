@@ -32,7 +32,7 @@ services:
       - "traefik.http.services.zitadel.loadbalancer.server.port=8080"
 
   db:
-    image: postgres:16-alpine
+    image: postgres:17-alpine
     volumes:
       - ${VOLUMES_DIR}/zitadel/data:/var/lib/postgresql/data
     environment:
