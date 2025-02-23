@@ -1,0 +1,26 @@
+services:
+  navidrome:
+    image: deluan/navidrome:0.54.5
+    user: ${PUID}:${PGID}
+    environment:
+      ND_SCANSCHEDULE: 1h
+      ND_LOGLEVEL: info
+      ND_SESSIONTIMEOUT: 24h
+      ND_BASEURL: https://navidrome.ryanmalonzo.com
+      ND_ENABLEINSIGHTSCOLLECTOR: false
+    volumes:
+      - "${VOLUMES_DIR}/navidrome/data:/data"
+      - "${HDD1_DIR}/music:/music:ro"
+    networks:
+      - proxy
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.navidrome.rule=Host(`navidrome.ryanmalonzo.com`)"
+      - "traefik.http.routers.navidrome.entrypoints=websecure"
+      - "traefik.http.routers.navidrome.tls.certresolver=cloudflare"
+      - "traefik.http.services.navidrome.loadbalancer.server.port=4533"
+
+networks:
+  proxy:
+    external: true
