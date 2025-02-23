@@ -8,6 +8,7 @@ services:
       ND_SESSIONTIMEOUT: 24h
       ND_BASEURL: https://navidrome.ryanmalonzo.com
       ND_ENABLEINSIGHTSCOLLECTOR: false
+      ND_DEFAULTTHEME: Spotify-ish
     volumes:
       - "${VOLUMES_DIR}/navidrome/data:/data"
       - "${HDD1_DIR}/music:/music:ro"
