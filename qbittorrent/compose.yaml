@@ -1,6 +1,6 @@
 services:
   gluetun-qbittorrent:
-    image: qmcgaw/gluetun
+    image: qmcgaw/gluetun:v3.40
     container_name: gluetun-qbittorrent
     hostname: qbittorrent
     cap_add:
