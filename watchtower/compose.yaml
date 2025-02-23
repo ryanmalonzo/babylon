@@ -9,7 +9,7 @@ services:
       WATCHTOWER_CLEANUP: true
       WATCHTOWER_SCHEDULE: 0 0 4 * * *
       WATCHTOWER_NOTIFICATION_SKIP_TITLE: true
-      WATCHTOWER_NOTIFICATION_URL: ntfy://:${NTFY_WATCHTOWER_TOKEN}@ntfy/watchtower?title=Watchtower
+      WATCHTOWER_NOTIFICATION_URL: ntfy://:${NTFY_WATCHTOWER_TOKEN}@ntfy/watchtower?scheme=http&title=Watchtower
     networks:
       - ntfy
 
