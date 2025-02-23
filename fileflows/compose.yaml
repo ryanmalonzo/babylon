@@ -34,8 +34,8 @@ services:
       - ${VOLUMES_DIR}/fileflows/data:/app/Data
       - ${VOLUMES_DIR}/fileflows/logs:/app/Logs
       - ${VOLUMES_DIR}/fileflows/common:/app/common
-      - /mnt/hdd1/movies:/movies
-      - /mnt/hdd1/tvshows:/tvshows
+      - /mnt/hdd1/movies:/media/movies
+      - /mnt/hdd1/tvshows:/media/tvshows
     devices:
       - "/dev/dri:/dev/dri"
     depends_on:
