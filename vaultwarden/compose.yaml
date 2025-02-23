@@ -1,6 +1,6 @@
 services:
   tailscale-vaultwarden:
-    image: tailscale/tailscale
+    image: tailscale/tailscale:v1.80
     container_name: tailscale-vaultwarden
     hostname: vaultwarden
     environment:
