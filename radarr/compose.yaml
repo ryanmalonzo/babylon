@@ -1,0 +1,46 @@
+services:
+  tailscale-radarr:
+    image: tailscale/tailscale
+    container_name: tailscale-radarr
+    hostname: radarr
+    environment:
+      TS_AUTHKEY: ${TS_AUTHKEY}?ephemeral=false
+      TS_EXTRA_ARGS: --advertise-tags=tag:container
+      TS_STATE_DIR: /var/lib/tailscale
+      TS_SERVE_CONFIG: /config/radarr.json
+    ports:
+      - "7878:7878"
+    volumes:
+      - ${VOLUMES_DIR}/radarr/tailscale:/config
+      - tailscale:/var/lib/tailscale
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - net_admin
+      - sys_module
+    networks:
+      - jellyfin
+    restart: unless-stopped
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${VOLUMES_DIR}/radarr/config:/config
+      - /mnt/hdd1/movies:/movies
+      - /mnt/hdd1/downloads:/downloads
+    depends_on:
+      - tailscale-radarr
+    network_mode: service:tailscale-radarr
+    restart: unless-stopped
+
+volumes:
+  tailscale:
+
+networks:
+  jellyfin:
+    external: true
