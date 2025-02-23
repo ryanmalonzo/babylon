@@ -1,0 +1,18 @@
+services:
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    environment:
+      TZ: ${TZ}
+      WATCHTOWER_CLEANUP: true
+      WATCHTOWER_SCHEDULE: 0 0 4 * * *
+      WATCHTOWER_NOTIFICATION_SKIP_TITLE: true
+      WATCHTOWER_NOTIFICATION_URL: ntfy://${NTFY_WATCHTOWER_TOKEN}@ntfy/watchtower?title=Watchtower
+    networks:
+      - ntfy
+
+networks:
+  ntfy:
+    external: true
