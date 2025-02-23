@@ -24,5 +24,7 @@ services:
       - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
 
 networks:
+  jellyfin:
+    external: true
   proxy:
     external: true
