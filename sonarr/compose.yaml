@@ -36,6 +36,9 @@ services:
     network_mode: service:tailscale-sonarr
     restart: unless-stopped
 
+volumes:
+  tailscale:
+
 networks:
   jellyfin:
     external: true
