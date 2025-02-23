@@ -6,18 +6,17 @@ services:
       - serve
     environment:
       NTFY_BASE_URL: http://ntfy.ryanmalonzo.com
-      NTFY_CACHE_FILE: /var/lib/ntfy/cache.db
+      NTFY_CACHE_FILE: /var/cache/ntfy/cache.db
       NTFY_CACHE_DURATION: 24h
-      NTFY_AUTH_FILE: /var/lib/ntfy/auth.db
+      NTFY_AUTH_FILE: /var/cache/ntfy/auth.db
       NTFY_AUTH_DEFAULT_ACCESS: deny-all
       NTFY_BEHIND_PROXY: true
-      NTFY_ATTACHMENT_CACHE_DIR: /var/lib/ntfy/attachments
+      NTFY_ATTACHMENT_CACHE_DIR: /var/cache/ntfy/attachments
       NTFY_ENABLE_LOGIN: true
       TZ: ${TZ}
     user: ${PUID}:${PGID}
     volumes:
       - ${VOLUMES_DIR}/ntfy/cache:/var/cache/ntfy
-      - ${VOLUMES_DIR}/ntfy/etc:/etc/ntfy
     networks:
       - ntfy
       - proxy
