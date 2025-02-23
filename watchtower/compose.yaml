@@ -7,7 +7,7 @@ services:
     environment:
       TZ: ${TZ}
       WATCHTOWER_CLEANUP: true
-      WATCHTOWER_SCHEDULE: 0 0 4 * * *
+      WATCHTOWER_SCHEDULE: 0 30 3 * * *
       WATCHTOWER_NOTIFICATION_SKIP_TITLE: true
       WATCHTOWER_NOTIFICATION_URL: ntfy://:${NTFY_WATCHTOWER_TOKEN}@ntfy/watchtower?scheme=http&title=Watchtower
     networks:
