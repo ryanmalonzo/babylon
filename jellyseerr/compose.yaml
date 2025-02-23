@@ -8,6 +8,7 @@ services:
     volumes:
       - ${VOLUMES_DIR}/jellyseerr/config:/app/config
     networks:
+      - ntfy
       - jellyfin
       - proxy
     restart: unless-stopped
@@ -19,6 +20,8 @@ services:
       - "traefik.http.services.jellyseerr.loadbalancer.server.port=5055"
 
 networks:
+  ntfy:
+    external: true
   jellyfin:
     external: true
   proxy:
