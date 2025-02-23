@@ -1,0 +1,25 @@
+services:
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    environment:
+      LOG_LEVEL: debug
+      TZ: ${TZ}
+    volumes:
+      - ${VOLUMES_DIR}/jellyseerr/config:/app/config
+    networks:
+      - jellyfin
+      - proxy
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jellyseerr.rule=Host(`jellyseerr.ryanmalonzo.com`)"
+      - "traefik.http.routers.jellyseerr.entrypoints=websecure"
+      - "traefik.http.routers.jellyseerr.tls.certresolver=cloudflare"
+      - "traefik.http.services.jellyseerr.loadbalancer.server.port=5055"
+
+networks:
+  jellyfin:
+    external: true
+  proxy:
+    external: true
