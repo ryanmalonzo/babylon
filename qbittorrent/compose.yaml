@@ -6,7 +6,7 @@ services:
     cap_add:
       - NET_ADMIN
     ports:
-      - "8081:8080"
+      - "8080:8080"
     networks:
       - jellyfin
     devices:

@@ -5,7 +5,7 @@ services:
     ports:
       - "443:443"
       # Web UI
-      - "8080:8080"
+      - "8081:8080"
     volumes:
       - ${VOLUMES_DIR}/traefik/traefik.yml:/etc/traefik/traefik.yml
       - ${VOLUMES_DIR}/traefik/dynamic.yml:/etc/traefik/dynamic.yml
