@@ -1,0 +1,17 @@
+services:
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr:7.4
+    container_name: recyclarr
+    user: ${PUID}:${PGID}
+    volumes:
+      - ${VOLUMES_DIR}/recyclarr/config:/config
+    environment:
+      RECYCLARR_CREATE_CONFIG: true
+      TZ: ${TZ}
+    networks:
+      - jellyfin
+    restart: unless-stopped
+
+networks:
+  jellyfin:
+    external: true
