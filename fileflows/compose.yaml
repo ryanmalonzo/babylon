@@ -21,7 +21,7 @@ services:
     restart: unless-stopped
 
   fileflows:
-    image: revenz/fileflows
+    image: revenz/fileflows:stable
     container_name: fileflows
     environment:
       TempPathHost: ${VOLUMES_DIR}/fileflows/temp
