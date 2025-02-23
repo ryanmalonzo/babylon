@@ -1,0 +1,41 @@
+services:
+  tailscale-sonarr:
+    image: tailscale/tailscale
+    container_name: tailscale-sonarr
+    hostname: sonarr
+    environment:
+      TS_AUTHKEY: ${TS_AUTHKEY}?ephemeral=false
+      TS_EXTRA_ARGS: --advertise-tags=tag:container
+      TS_STATE_DIR: /var/lib/tailscale
+      TS_SERVE_CONFIG: /config/sonarr.json
+    volumes:
+      - ${VOLUMES_DIR}/sonarr/tailscale:/config
+      - tailscale:/var/lib/tailscale
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - net_admin
+      - sys_module
+    networks:
+      - jellyfin
+    restart: unless-stopped
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${VOLUMES_DIR}/sonarr/config:/config
+      - /mnt/hdd1/tvshows:/tv
+      - /mnt/hdd1/downloads:/downloads
+    depends_on:
+      - tailscale-sonarr
+    network_mode: service:tailscale-sonarr
+    restart: unless-stopped
+
+networks:
+  jellyfin:
+    external: true
