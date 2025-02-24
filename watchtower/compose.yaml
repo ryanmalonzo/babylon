@@ -12,6 +12,7 @@ services:
       WATCHTOWER_NOTIFICATION_URL: ntfy://:${NTFY_WATCHTOWER_TOKEN}@ntfy/watchtower?scheme=http&title=Watchtower
     networks:
       - ntfy
+    restart: unless-stopped
 
 networks:
   ntfy:
