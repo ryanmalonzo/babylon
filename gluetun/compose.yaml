@@ -22,7 +22,6 @@ services:
       TS_AUTHKEY: ${TS_AUTHKEY}?ephemeral=false
       TS_EXTRA_ARGS: --advertise-tags=tag:container --advertise-exit-node
       TS_STATE_DIR: /var/lib/tailscale
-      TS_SERVE_CONFIG: /config/protonvpn.json
     volumes:
       - tailscale:/var/lib/tailscale
     network_mode: service:gluetun-protonvpn
