@@ -17,7 +17,7 @@
 		{"action": "accept", "src": ["group:docker"], "dst": ["tag:container:*"]},
 		{"action": "accept", "src": ["group:docker"], "dst": ["tag:docker:*"]},
 		{"action": "accept", "src": ["group:proxmox"], "dst": ["tag:proxmox:*"]},
-		{"action": "accept", "src": ["group:vpn"], "dst": ["tag:vpn:*"]},
+		{"action": "accept", "src": ["group:vpn"], "dst": ["autogroup:internet:*"]},
 	],
 
 	"ssh": [
