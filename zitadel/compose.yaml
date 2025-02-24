@@ -1,6 +1,7 @@
 services:
   zitadel:
     image: ghcr.io/zitadel/zitadel:latest
+    container_name: zitadel
     command: "start-from-init --masterkeyFromEnv --tlsMode external"
     environment:
       ZITADEL_MASTERKEY: ${ZITADEL_MASTERKEY}
@@ -30,9 +31,11 @@ services:
       - "traefik.http.routers.zitadel.tls.certresolver=cloudflare"
       - "traefik.http.services.zitadel.loadbalancer.server.scheme=h2c"
       - "traefik.http.services.zitadel.loadbalancer.server.port=8080"
+      - "com.centurylinklabs.watchtower.depends-on=zitadel-db"
 
   db:
     image: postgres:16-alpine
+    container_name: zitadel-db
     volumes:
       - ${VOLUMES_DIR}/zitadel/data:/var/lib/postgresql/data
     environment:
