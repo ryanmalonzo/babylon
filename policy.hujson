@@ -3,19 +3,21 @@
 	"groups": {
 		"group:docker":  ["ryanmalonzo@github"],
 		"group:proxmox": ["ryanmalonzo@github"],
+		"group:vpn": ["ryanmalonzo@github"],
 	},
 
-	// Define the tags which can be applied to devices and by which users.
 	"tagOwners": {
 		"tag:container": ["autogroup:admin"],
 		"tag:docker":    ["autogroup:admin"],
 		"tag:proxmox":   ["autogroup:admin"],
+		"tag:vpn":   ["autogroup:admin"],
 	},
 
 	"acls": [
 		{"action": "accept", "src": ["group:docker"], "dst": ["tag:container:*"]},
 		{"action": "accept", "src": ["group:docker"], "dst": ["tag:docker:*"]},
 		{"action": "accept", "src": ["group:proxmox"], "dst": ["tag:proxmox:*"]},
+		{"action": "accept", "src": ["group:vpn"], "dst": ["tag:vpn:*"]},
 	],
 
 	"ssh": [
