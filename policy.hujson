@@ -1,0 +1,30 @@
+// This tailnet's ACLs are maintained in https://github.com/ryanmalonzo/babylon/blob/main/policy.hujson
+{
+	"groups": {
+		"group:docker":  ["ryanmalonzo@github"],
+		"group:proxmox": ["ryanmalonzo@github"],
+	},
+
+	// Define the tags which can be applied to devices and by which users.
+	"tagOwners": {
+		"tag:container": ["autogroup:admin"],
+		"tag:docker":    ["autogroup:admin"],
+		"tag:proxmox":   ["autogroup:admin"],
+	},
+
+	"acls": [
+		{"action": "accept", "src": ["group:docker"], "dst": ["tag:container:*"]},
+		{"action": "accept", "src": ["group:docker"], "dst": ["tag:docker:*"]},
+		{"action": "accept", "src": ["group:proxmox"], "dst": ["tag:proxmox:*"]},
+	],
+
+	"ssh": [
+		{
+			"action":      "check",
+			"src":         ["ryanmalonzo@github"],
+			"dst":         ["tag:docker"],
+			"users":       ["ryanmalonzo"],
+			"checkPeriod": "12h",
+		},
+	],
+}
