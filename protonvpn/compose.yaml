@@ -13,6 +13,12 @@ services:
       VPN_TYPE: wireguard
       WIREGUARD_PRIVATE_KEY: ${WIREGUARD_PRIVATE_KEY}
       SERVER_COUNTRIES: ${SERVER_COUNTRIES}
+      WIREGUARD_IMPLEMENTATION: kernelspace
+      WIREGUARD_MTU: 1420
+      UPDATER_PERIOD: 24h
+      TZ: ${TZ}
+      FIREWALL_VPN_INPUT_PORTS: 41641
+      FIREWALL_OUTBOUND_SUBNETS: 192.168.1.0/24,100.64.0.0/10
     restart: unless-stopped
 
   tailscale-protonvpn:
