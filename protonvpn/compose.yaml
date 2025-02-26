@@ -5,7 +5,7 @@ services:
     cap_add:
       - NET_ADMIN
     volumes:
-      - ${VOLUMES_DIR}/protonvpn/gluetun:/gluetun
+      - gluetun:/gluetun
     environment:
       VPN_SERVICE_PROVIDER: protonvpn
       VPN_TYPE: wireguard
@@ -40,4 +40,5 @@ services:
     restart: unless-stopped
 
 volumes:
+  gluetun:
   tailscale:
