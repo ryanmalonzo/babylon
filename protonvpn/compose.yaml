@@ -6,8 +6,6 @@ services:
       - NET_ADMIN
     volumes:
       - ${VOLUMES_DIR}/protonvpn/gluetun:/gluetun
-    devices:
-      - /dev/net/tun:/dev/net/tun
     environment:
       VPN_SERVICE_PROVIDER: protonvpn
       VPN_TYPE: wireguard
@@ -18,7 +16,9 @@ services:
       UPDATER_PERIOD: 24h
       TZ: ${TZ}
       FIREWALL_VPN_INPUT_PORTS: 41641
-      FIREWALL_OUTBOUND_SUBNETS: 192.168.1.0/24,100.64.0.0/10
+      FIREWALL_OUTBOUND_SUBNETS: 192.168.1.0/24,100.64.0.0/10,172.16.0.0/12
+    devices:
+      - /dev/net/tun:/dev/net/tun
     restart: unless-stopped
 
   tailscale-protonvpn:
