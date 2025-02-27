@@ -2,8 +2,8 @@ services:
   gluetun-protonvpn:
     image: qmcgaw/gluetun:v3.40
     container_name: gluetun-protonvpn
-    cap_add:
-      - NET_ADMIN
+    ports:
+      - "0.0.0.0:41641:41641"
     volumes:
       - gluetun:/gluetun
     environment:
@@ -15,8 +15,11 @@ services:
       WIREGUARD_MTU: 1420
       UPDATER_PERIOD: 24h
       TZ: ${TZ}
+      FIREWALL_INPUT_PORTS: 41641
       FIREWALL_VPN_INPUT_PORTS: 41641
       FIREWALL_OUTBOUND_SUBNETS: 192.168.1.0/24,100.64.0.0/10,172.16.0.0/12
+    cap_add:
+      - NET_ADMIN
     devices:
       - /dev/net/tun:/dev/net/tun
     restart: unless-stopped
