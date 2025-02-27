@@ -3,7 +3,7 @@
 	"groups": {
 		"group:docker":  ["ryanmalonzo@github"],
 		"group:proxmox": ["ryanmalonzo@github"],
-		"group:vpn": ["ryanmalonzo@github"],
+		"group:vpn": ["ryanmalonzo@github", "Kuhame@github"],
 	},
 
 	"tagOwners": {
