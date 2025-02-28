@@ -1,6 +1,7 @@
 services:
   ocis:
     image: owncloud/ocis:7.0.1
+    container_name: owncloud
     volumes:
       - ${VOLUMES_DIR}/owncloud/ocis.yaml:/etc/ocis/ocis.yaml
       - ${VOLUMES_DIR}/owncloud/ocis:/var/lib/ocis
