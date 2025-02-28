@@ -10,6 +10,7 @@ services:
       OCIS_URL: https://owncloud.ryanmalonzo.com
       OCIS_LOG_LEVEL: info
       PROXY_HTTP_ADDR: 0.0.0.0:9200
+      PROXY_TLS: false
     networks:
       - proxy
     restart: unless-stopped
