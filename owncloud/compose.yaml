@@ -21,6 +21,7 @@ services:
       PROXY_AUTOPROVISION_ACCOUNTS: true
       PROXY_ROLE_ASSIGNMENT_DRIVER: oidc
       # config
+      PROXY_CSP_CONFIG_FILE_LOCATION: /etc/ocis/csp.yaml
       OCIS_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD: false
     networks:
       - proxy
