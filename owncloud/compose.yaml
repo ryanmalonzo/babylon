@@ -11,6 +11,7 @@ services:
       OCIS_LOG_LEVEL: info
       PROXY_HTTP_ADDR: 0.0.0.0:9200
       PROXY_TLS: false
+      OCIS_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD: false
     networks:
       - proxy
     restart: unless-stopped
