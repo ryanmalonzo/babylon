@@ -4,7 +4,7 @@ services:
     container_name: owncloud
     volumes:
       - ${VOLUMES_DIR}/owncloud/ocis.yaml:/etc/ocis/ocis.yaml
-      - ${VOLUMES_DIR}/owncloud/ocis:/var/lib/ocis
+      - ocis:/var/lib/ocis
     environment:
       OCIS_INSECURE: true
       OCIS_URL: https://owncloud.ryanmalonzo.com
@@ -20,6 +20,9 @@ services:
       - "traefik.http.routers.owncloud.entrypoints=websecure"
       - "traefik.http.routers.owncloud.tls.certresolver=cloudflare"
       - "traefik.http.services.owncloud.loadbalancer.server.port=9200"
+
+volumes:
+  ocis:
 
 networks:
   proxy:
