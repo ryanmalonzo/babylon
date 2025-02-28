@@ -3,14 +3,24 @@ services:
     image: owncloud/ocis:7.0.1
     container_name: owncloud
     volumes:
-      - ${VOLUMES_DIR}/owncloud/ocis.yaml:/etc/ocis/ocis.yaml
+      - ${VOLUMES_DIR}/owncloud:/etc/ocis
       - ocis:/var/lib/ocis
     environment:
+      # proxy
       OCIS_INSECURE: true
       OCIS_URL: https://owncloud.ryanmalonzo.com
       OCIS_LOG_LEVEL: info
       PROXY_HTTP_ADDR: 0.0.0.0:9200
       PROXY_TLS: false
+      # oidc
+      OCIS_OIDC_ISSUER: https://id.ryanmalonzo.com
+      OCIS_OIDC_CLIENT_ID: 309184241151836163
+      PROXY_OIDC_REWRITE_WELLKNOWN: true
+      PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM: roles
+      PROXY_USER_OIDC_CLAIM: preferred_username
+      PROXY_AUTOPROVISION_ACCOUNTS: true
+      PROXY_ROLE_ASSIGNMENT_DRIVER: oidc
+      # config
       OCIS_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD: false
     networks:
       - proxy
