@@ -11,7 +11,7 @@ services:
       ND_DEFAULTTHEME: Spotify-ish
     volumes:
       - "${VOLUMES_DIR}/navidrome/data:/data"
-      - "${HDD1_DIR}/music:/music:ro"
+      - "/mnt/hdd1/music:/music:ro"
     networks:
       - proxy
     restart: unless-stopped
