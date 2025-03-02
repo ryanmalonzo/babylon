@@ -17,6 +17,7 @@ services:
       TZ: ${TZ}
       FIREWALL_VPN_INPUT_PORTS: 41641
       FIREWALL_OUTBOUND_SUBNETS: 192.168.1.0/24,100.64.0.0/10,172.16.0.0/12
+      DNS_ADDRESS: 192.168.1.96
     devices:
       - /dev/net/tun:/dev/net/tun
     restart: unless-stopped
