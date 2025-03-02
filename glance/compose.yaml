@@ -1,0 +1,31 @@
+services:
+  tailscale-glance:
+    image: tailscale/tailscale:v1.80
+    container_name: tailscale-glance
+    hostname: glance
+    environment:
+      TS_AUTHKEY: ${TS_AUTHKEY}?ephemeral=false
+      TS_EXTRA_ARGS: --advertise-tags=tag:container
+      TS_STATE_DIR: /var/lib/tailscale
+      TS_SERVE_CONFIG: /config/glance.json
+    volumes:
+      - ${VOLUMES_DIR}/glance/tailscale:/config
+      - tailscale:/var/lib/tailscale
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - net_admin
+      - sys_module
+    restart: unless-stopped
+
+  glance:
+    container_name: glance
+    image: glanceapp/glance
+    volumes:
+      - ${VOLUMES_DIR}/glance/config:/app/config
+      - ${VOLUMES_DIR}/glance/assets:/app/assets
+    network_mode: service:tailscale-glance
+    restart: unless-stopped
+
+volumes:
+  tailscale:
