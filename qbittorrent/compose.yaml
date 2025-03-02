@@ -64,6 +64,7 @@ services:
       glance.id: qbittorrent
       glance.name: qBittorrent
       glance.icon: sh:qbittorrent
+      glance.url: https://qbittorrent.owl-augmented.ts.net/
 
 volumes:
   gluetun:
