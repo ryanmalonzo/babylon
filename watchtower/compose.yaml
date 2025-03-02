@@ -15,7 +15,7 @@ services:
     restart: unless-stopped
     labels:
       glance.name: Watchtower
-      glance.icon: sh:watchtower
+      glance.icon: sh:watchtower.png
 
 networks:
   ntfy:

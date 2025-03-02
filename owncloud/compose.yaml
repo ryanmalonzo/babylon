@@ -36,7 +36,7 @@ services:
       traefik.http.services.owncloud.loadbalancer.server.port: 9200
       # glance
       glance.name: ownCloud
-      glance.icon: sh:ownCloud
+      glance.icon: sh:owncloud
       glance.url: https://owncloud.ryanmalonzo.com/
 
 volumes:
