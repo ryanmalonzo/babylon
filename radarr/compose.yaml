@@ -19,6 +19,9 @@ services:
     networks:
       - jellyfin
     restart: unless-stopped
+    labels:
+      glance.parent: radarr
+      glance.name: Tailscale
 
   radarr:
     image: lscr.io/linuxserver/radarr:5.19.3
@@ -35,6 +38,11 @@ services:
       - tailscale-radarr
     network_mode: service:tailscale-radarr
     restart: unless-stopped
+    labels:
+      glance.id: radarr
+      glance.name: Radarr
+      glance.icon: sh:radarr
+      glance.url: https://radarr.owl-augmented.ts.net/
 
 volumes:
   tailscale:

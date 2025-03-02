@@ -28,11 +28,16 @@ services:
       - proxy
     restart: unless-stopped
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.owncloud.rule=Host(`owncloud.ryanmalonzo.com`)"
-      - "traefik.http.routers.owncloud.entrypoints=websecure"
-      - "traefik.http.routers.owncloud.tls.certresolver=cloudflare"
-      - "traefik.http.services.owncloud.loadbalancer.server.port=9200"
+      # traefik
+      traefik.enable: true
+      traefik.http.routers.owncloud.rule: Host(`owncloud.ryanmalonzo.com`)
+      traefik.http.routers.owncloud.entrypoints: websecure
+      traefik.http.routers.owncloud.tls.certresolver: cloudflare
+      traefik.http.services.owncloud.loadbalancer.server.port: 9200
+      # glance
+      glance.name: ownCloud
+      glance.icon: sh:ownCloud
+      glance.url: https://owncloud.ryanmalonzo.com/
 
 volumes:
   ocis:

@@ -17,6 +17,9 @@ services:
       - net_admin
       - sys_module
     restart: unless-stopped
+    labels:
+      glance.parent: vaultwarden
+      glance.name: Tailscale
 
   vaultwarden:
     image: vaultwarden/server:latest
@@ -29,6 +32,11 @@ services:
       - tailscale-vaultwarden
     network_mode: service:tailscale-vaultwarden
     restart: unless-stopped
+    labels:
+      glance.id: vaultwarden
+      glance.name: Vaultwarden
+      glance.icon: sh:vaultwarden
+      glance.url: https://vaultwarden.owl-augmented.ts.net/
 
 volumes:
   tailscale:

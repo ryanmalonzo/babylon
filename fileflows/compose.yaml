@@ -19,6 +19,9 @@ services:
     networks:
       - jellyfin
     restart: unless-stopped
+    labels:
+      glance.parent: fileflows
+      glance.name: Tailscale
 
   fileflows:
     image: revenz/fileflows:stable
@@ -42,6 +45,11 @@ services:
       - tailscale-fileflows
     network_mode: service:tailscale-fileflows
     restart: unless-stopped
+    labels:
+      glance.id: fileflows
+      glance.name: FileFlows
+      glance.icon: sh:fileflows
+      glance.url: https://fileflows.owl-augmented.ts.net/
 
 volumes:
   tailscale:

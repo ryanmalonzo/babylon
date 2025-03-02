@@ -13,11 +13,16 @@ services:
       - proxy
     restart: unless-stopped
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.jellyseerr.rule=Host(`jellyseerr.ryanmalonzo.com`)"
-      - "traefik.http.routers.jellyseerr.entrypoints=websecure"
-      - "traefik.http.routers.jellyseerr.tls.certresolver=cloudflare"
-      - "traefik.http.services.jellyseerr.loadbalancer.server.port=5055"
+      # traefik
+      traefik.enable: true
+      traefik.http.routers.jellyseerr.rule: Host(`jellyseerr.ryanmalonzo.com`)
+      traefik.http.routers.jellyseerr.entrypoints: websecure
+      traefik.http.routers.jellyseerr.tls.certresolver: cloudflare
+      traefik.http.services.jellyseerr.loadbalancer.server.port: 5055
+      # glance
+      glance.name: Jellyseerr
+      glance.icon: sh:jellyseerr
+      glance.url: https://jellyseerr.ryanmalonzo.com/
 
 networks:
   ntfy:

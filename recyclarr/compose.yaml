@@ -11,6 +11,9 @@ services:
     networks:
       - jellyfin
     restart: unless-stopped
+    labels:
+      glance.name: Recyclarr
+      glance.icon: sh:recyclarr
 
 networks:
   jellyfin:

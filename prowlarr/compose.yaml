@@ -19,6 +19,9 @@ services:
     networks:
       - jellyfin
     restart: unless-stopped
+    labels:
+      glance.parent: prowlarr
+      glance.name: Tailscale
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:1.31.2
@@ -33,6 +36,11 @@ services:
       - tailscale-prowlarr
     network_mode: service:tailscale-prowlarr
     restart: unless-stopped
+    labels:
+      glance.id: prowlarr
+      glance.name: Prowlarr
+      glance.icon: sh:prowlarr
+      glance.url: https://prowlarr.owl-augmented.ts.net/
 
 volumes:
   tailscale:

@@ -17,6 +17,9 @@ services:
       - net_admin
       - sys_module
     restart: unless-stopped
+    labels:
+      glance.parent: glance
+      glance.name: Tailscale
 
   glance:
     container_name: glance
@@ -24,8 +27,14 @@ services:
     volumes:
       - ${VOLUMES_DIR}/glance/config:/app/config
       - ${VOLUMES_DIR}/glance/assets:/app/assets
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     network_mode: service:tailscale-glance
     restart: unless-stopped
+    labels:
+      glance.id: glance
+      glance.name: glance
+      glance.icon: sh:glance
+      glance.url: https://glance.owl-augmented.ts.net
 
 volumes:
   tailscale:

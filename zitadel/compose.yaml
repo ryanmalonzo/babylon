@@ -25,13 +25,20 @@ services:
       - zitadel
     restart: unless-stopped
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.zitadel.rule=Host(`id.ryanmalonzo.com`)"
-      - "traefik.http.routers.zitadel.entrypoints=websecure"
-      - "traefik.http.routers.zitadel.tls.certresolver=cloudflare"
-      - "traefik.http.services.zitadel.loadbalancer.server.scheme=h2c"
-      - "traefik.http.services.zitadel.loadbalancer.server.port=8080"
-      - "com.centurylinklabs.watchtower.depends-on=zitadel-db"
+      # traefik
+      traefik.enable: true
+      traefik.http.routers.zitadel.rule: Host(`id.ryanmalonzo.com`)
+      traefik.http.routers.zitadel.entrypoints: websecure
+      traefik.http.routers.zitadel.tls.certresolver: cloudflare
+      traefik.http.services.zitadel.loadbalancer.server.scheme: h2c
+      traefik.http.services.zitadel.loadbalancer.server.port: 8080
+      # glance
+      glance.id: zitadel
+      glance.name: Zitadel
+      glance.icon: sh:zitadel
+      glance.url: https://id.ryanmalonzo.com/
+      # watchtower
+      com.centurylinklabs.watchtower.depends-on: zitadel-db
 
   db:
     image: postgres:16-alpine
@@ -51,6 +58,9 @@ services:
     networks:
       - zitadel
     restart: unless-stopped
+    labels:
+      glance.parent: zitadel
+      glance.name: Database
 
 networks:
   proxy:
