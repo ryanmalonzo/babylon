@@ -32,7 +32,7 @@ services:
     restart: unless-stopped
     labels:
       glance.id: glance
-      glance.name: glance
+      glance.name: Glance
       glance.icon: sh:glance
       glance.url: https://glance.owl-augmented.ts.net
 
