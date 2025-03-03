@@ -1,0 +1,27 @@
+services:
+  glance:
+    image: glanceapp/glance
+    container_name: glance-public
+    volumes:
+      - ${VOLUMES_DIR}/glance/public/config:/app/config
+      - ${VOLUMES_DIR}/glance/public/assets:/app/assets
+      - ${VOLUMES_DIR}/glance/common:/app/config/common
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - proxy
+    restart: unless-stopped
+    labels:
+      # traefik
+      traefik.enable: true
+      traefik.http.routers.glance.rule: Host(`ryanmalonzo.com`) || Host(`www.ryanmalonzo.com`)
+      traefik.http.routers.glance.entrypoints: websecure
+      traefik.http.routers.glance.tls.certresolver: cloudflare
+      traefik.http.services.glance.loadbalancer.server.port: 8080
+      # glance
+      glance.name: Glance (Public)
+      glance.icon: sh:glance
+      glance.url: https://ryanmalonzo.com
+
+networks:
+  proxy:
+    external: true

@@ -9,7 +9,7 @@ services:
       TS_STATE_DIR: /var/lib/tailscale
       TS_SERVE_CONFIG: /config/glance.json
     volumes:
-      - ${VOLUMES_DIR}/glance/tailscale:/config
+      - ${VOLUMES_DIR}/glance/private/tailscale:/config
       - tailscale:/var/lib/tailscale
     devices:
       - /dev/net/tun:/dev/net/tun
@@ -18,21 +18,22 @@ services:
       - sys_module
     restart: unless-stopped
     labels:
-      glance.parent: glance
+      glance.parent: glance-private
       glance.name: Tailscale
 
   glance:
-    container_name: glance
     image: glanceapp/glance
+    container_name: glance-private
     volumes:
-      - ${VOLUMES_DIR}/glance/config:/app/config
-      - ${VOLUMES_DIR}/glance/assets:/app/assets
+      - ${VOLUMES_DIR}/glance/private/config:/app/config
+      - ${VOLUMES_DIR}/glance/private/assets:/app/assets
+      - ${VOLUMES_DIR}/glance/common:/app/config/common
       - /var/run/docker.sock:/var/run/docker.sock:ro
     network_mode: service:tailscale-glance
     restart: unless-stopped
     labels:
-      glance.id: glance
-      glance.name: Glance
+      glance.id: glance-private
+      glance.name: Glance (Private)
       glance.icon: sh:glance
       glance.url: https://glance.owl-augmented.ts.net
 
