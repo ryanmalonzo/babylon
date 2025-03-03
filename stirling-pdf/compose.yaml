@@ -1,0 +1,31 @@
+services:
+  stirling-pdf:
+    image: stirlingtools/stirling-pdf:0.43.2
+    container_name: stirling-pdf
+    volumes:
+      - ${VOLUMES_DIR}/stirling-pdf/tessdata:/usr/share/tessdata
+      - ${VOLUMES_DIR}/stirling-pdf/configs:/configs
+      - ${VOLUMES_DIR}/stirling-pdf/customFiles:/customFiles
+      - ${VOLUMES_DIR}/stirling-pdf/logs:/logs
+      - ${VOLUMES_DIR}/stirling-pdf/pipeline:/pipeline
+    environment:
+      DOCKER_ENABLE_SECURITY: false
+      LANGS: en_US
+    networks:
+      - proxy
+    restart: unless-stopped
+    labels:
+       # traefik
+      traefik.enable: true
+      traefik.http.routers.stirling-pdf.rule: Host(`pdf.ryanmalonzo.com`)
+      traefik.http.routers.stirling-pdf.entrypoints: websecure
+      traefik.http.routers.stirling-pdf.tls.certresolver: cloudflare
+      traefik.http.services.stirling-pdf.loadbalancer.server.port: 8080
+      # glance
+      glance.name: Stirling PDF
+      glance.icon: sh:stirling-pdf
+      glance.url: https://pdf.ryanmalonzo.com/
+
+networks:
+  proxy:
+    external: true
