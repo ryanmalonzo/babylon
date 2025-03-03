@@ -6,10 +6,14 @@
   ],
   "packageRules": [
     {
-      "matchUpdateTypes": ["patch", "pin", "digest"],
+      "matchUpdateTypes": [
+        "patch",
+        "pin",
+        "digest"
+      ],
       "automerge": true
     }
   ],
   "reviewersFromCodeOwners": true,
-  "semanticCommits": true
+  "semanticCommits": "enabled"
 }
