@@ -1,0 +1,25 @@
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:1.23.16
+    container_name: uptime-kuma
+    volumes:
+      - ${VOLUMES_DIR}/uptime-kuma/data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - proxy
+    restart: unless-stopped
+    labels:
+      # traefik
+      traefik.enable: true
+      traefik.http.routers.uptime-kuma.rule: Host(`status.ryanmalonzo.com`)
+      traefik.http.routers.uptime-kuma.entrypoints: websecure
+      traefik.http.routers.uptime-kuma.tls.certresolver: cloudflare
+      traefik.http.services.uptime-kuma.loadbalancer.server.port: 3001
+      # glance
+      glance.name: Uptime Kuma
+      glance.icon: sh:uptime-kuma
+      glance.url: https://status.ryanmalonzo.com/status/babylon
+
+networks:
+  proxy:
+    external: true
