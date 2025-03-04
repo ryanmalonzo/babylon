@@ -1,6 +1,7 @@
 services:
   navidrome:
     image: deluan/navidrome:0.54.5
+    container_name: navidrome
     user: ${PUID}:${PGID}
     environment:
       ND_SCANSCHEDULE: 1h
